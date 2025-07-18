@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-background text-white font-space-grotesk;
+}
+
+/* Neon Glow */
+.neon-glow {
+  color: #9c7cf5;
+  text-shadow: 0 0 5px #9c7cf5, 0 0 10px #9c7cf5;
+}
