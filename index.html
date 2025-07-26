@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Selector - Perfect Edition</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root{--primary-gradient:linear-gradient(135deg,#8b5cf6 0%,#06b6d4 100%);--glass-bg:rgba(0,0,0,.8);--glass-border:rgba(255,255,255,.1);--text-gradient:linear-gradient(180deg,rgba(248,248,248,.95) 0%,rgba(248,248,248,.4) 100%);}    
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    *{box-sizing:border-box;}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+    .glass-morphism{background:var(--glass-bg);backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--glass-border);}
+    .text-gradient{background:var(--text-gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+    .scrollbar-custom{scrollbar-width:thin;scrollbar-color:rgba(139,92,246,.6) transparent;}
+    .scrollbar-custom::-webkit-scrollbar{width:6px;} .scrollbar-custom::-webkit-scrollbar-thumb{background:rgba(139,92,246,.6);}
+    .rotate-180{transform:rotate(180deg);}
+  </style>
+</head>
+
+<body class="bg-neutral-950 flex flex-col items-center justify-center min-h-screen gap-8 overflow-x-hidden">
+  <div class="bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-md shadow-inner relative overflow-hidden w-[min(100%,26rem)]">
+    <!-- Home selector -->
+    <div class="flex items-center mb-3">
+      <div class="team-selector relative w-full">
+        <button type="button" class="selector-toggle glass-morphism focus-ring relative w-full h-12 px-6 rounded-xl group" aria-haspopup="listbox" aria-expanded="false">
+          <div class="flex items-center justify-between w-full h-full gap-2">
+            <span class="selector-label text-gradient font-medium text-sm leading-5">Válassz hazai csapatot</span>
+            <i data-lucide="x-circle" class="clear-selection-icon w-4 h-4 stroke-red-500 opacity-0 pointer-events-none transition"></i>
+            <div class="loading-state hidden text-gradient">
+              <div class="loading-dots"><span></span><span></span><span></span></div>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon w-4 h-4 stroke-neutral-300 transition-all group-hover:stroke-white"></i>
+          </div>
+          <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100"></div>
+        </button>
+        <div class="dropdown-panel glass-morphism absolute top-full left-0 right-0 mt-2 rounded-xl overflow-hidden opacity-0 invisible translate-y-2 scale-95 max-h-0" role="listbox" tabindex="-1">
+          <div class="p-3 border-b border-white/10">
+            <div class="relative">
+              <input type="text" class="search-input w-full h-10 px-10 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-neutral-400 focus:ring-2 focus:ring-purple-600" placeholder="Keresés..." aria-label="Csapat keresése">
+              <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-neutral-400"></i>
+              <button type="button" class="clear-search absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/10 opacity-0 hover:bg-white/20 focus:ring-2 focus:ring-purple-600" aria-label="Keresés törlése">
+                <i data-lucide="x" class="w-3 h-3 stroke-neutral-300 mx-auto"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dropdown-list max-h-96 overflow-y-auto scrollbar-custom" role="presentation"></div>
+          <div class="empty-state hidden p-6 text-center">
+            <i data-lucide="search" class="w-12 h-12 stroke-neutral-500 mx-auto mb-3"></i>
+            <p class="text-gradient text-sm">Nincs találat</p>
+            <p class="text-neutral-500 text-xs mt-1">Próbálj másik keresési kifejezést</p>
+          </div>
+        </div>
+        <div class="backdrop fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 invisible sm:hidden"></div>
+      </div>
+      <img class="homeLogo w-8 h-8 ml-3 hidden shrink-0 rounded" src="" alt="">
+    </div>
+    <!-- Away selector -->
+    <div class="flex items-center">
+      <div class="team-selector relative w-full">
+        <button type="button" class="selector-toggle glass-morphism focus-ring relative w-full h-12 px-6 rounded-xl group" aria-haspopup="listbox" aria-expanded="false">
+          <div class="flex items-center justify-between w-full h-full gap-2">
+            <span class="selector-label text-gradient font-medium text-sm leading-5">Válassz vendég csapatra</span>
+            <i data-lucide="x-circle" class="clear-selection-icon w-4 h-4 stroke-red-500 opacity-0 pointer-events-none transition"></i>
+            <div class="loading-state hidden text-gradient">
+              <div class="loading-dots"><span></span><span></span><span></span></div>
+            </div>
+            <i data-lucide="chevron-down" class="chevron-icon w-4 h-4 stroke-neutral-300 transition-all group-hover:stroke-white"></i>
+          </div>
+          <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100"></div>
+        </button>
+        <div class="dropdown-panel glass-morphism absolute top-full left-0 right-0 mt-2 rounded-xl overflow-hidden opacity-0 invisible translate-y-2 scale-95 max-h-0" role="listbox" tabindex="-1">
+          <div class="p-3 border-b border-white/10">
+            <div class="relative">
+              <input type="text" class="search-input w-full h-10 px-10 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-neutral-400 focus:ring-2 focus:ring-purple-600" placeholder="Keresés..." aria-label="Csapat keresése">
+              <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-neutral-400"></i>
+              <button type="button" class="clear-search absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/10 opacity-0 hover:bg-white/20 focus:ring-2 focus:ring-purple-600" aria-label="Keresés törlése">
+                <i data-lucide="x" class="w-3 h-3 stroke-neutral-300 mx-auto"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dropdown-list max-h-96 overflow-y-auto scrollbar-custom" role="presentation"></div>
+          <div class="empty-state hidden p-6 text-center">
+            <i data-lucide="search" class="w-12 h-12 stroke-neutral-500 mx-auto mb-3"></i>
+            <p class="text-gradient text-sm">Nincs találat</p>
+            <p class="text-neutral-500 text-xs mt-1">Próbálj másik keresési kifejezést</p>
+          </div>
+        </div>
+        <div class="backdrop fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 invisible sm:hidden"></div>
+      </div>
+      <img class="awayLogo w-8 h-8 ml-3 hidden shrink-0 rounded" src="" alt="">
+    </div>
+  </div>
+  <script>
+    class PerfectTeamSelector {
+      constructor(root) {
+        this.root = root;
+        this.toggle = root.querySelector('.selector-toggle');
+        this.labelEl = root.querySelector('.selector-label');
+        this.clearSelectionIcon = root.querySelector('.clear-selection-icon');
+        this.chevron = root.querySelector('.chevron-icon');
+        this.dropdown = root.querySelector('.dropdown-panel');
+        this.listWrap = root.querySelector('.dropdown-list');
+        this.backdrop = root.querySelector('.backdrop');
+        this.searchInput = root.querySelector('.search-input');
+        this.clearSearch = root.querySelector('.clear-search');
+        this.emptyState = root.querySelector('.empty-state');
+        this.defaultLabel = this.labelEl.textContent;
+        this.teams = ["Aston Oroszlán","Brentford","Brighton","Chelsea","Crystal Palace","Everton","Fulham","Liverpool","London Ágyúk","Manchester Kék","Newcastle","Nottingham","Tottenham","Vörös Ördögök","West Ham","Wolverhampton"];
+        this.filteredTeams = [...this.teams];
+        this.selected = null;
+        this.searchQuery = '';
+        this.isOpen = false;
+        this.config = {animationDuration: 300, searchDebounceDelay: 150, maxHeight: 512};
+        this.searchDebounce = this.debounce(this.performSearch.bind(this), this.config.searchDebounceDelay);
+        this.init();
+      }
+      debounce(fn, wait) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); }; }
+      normalizeStr(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+      escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+      init() {
+        lucide.createIcons({attrs: {'stroke-width': 1.5}});
+        this.buildList();
+        this.addEvents();
+      }
+      addEvents() {
+        this.toggle.addEventListener('click', (e) => {
+          if (e.target.closest('.clear-selection-icon')) return;
+          this.isOpen ? this.close() : this.open();
+        });
+        this.clearSelectionIcon.addEventListener('click', (e) => {
+          e.stopPropagation(); this.resetSelection();
+        });
+        this.backdrop.addEventListener('click', () => this.close());
+        document.addEventListener('click', (e) => {
+          if (this.isOpen && !this.root.contains(e.target)) this.close();
+        });
+        this.searchInput.addEventListener('input', (e) => {
+          this.searchQuery = e.target.value;
+          this.updateClearBtn();
+          this.searchDebounce();
+        });
+        this.clearSearch.addEventListener('click', () => {
+          this.searchInput.value = '';
+          this.searchQuery = '';
+          this.updateClearBtn();
+          this.performSearch();
+          this.searchInput.focus();
+        });
+      }
+      updateClearBtn() {
+        const flag = this.searchQuery.trim() !== '';
+        this.clearSearch.classList.toggle('opacity-0', !flag);
+      }
+      performSearch() {
+        const q = this.normalizeStr(this.searchQuery.trim());
+        if (!q) { this.filteredTeams = [...this.teams]; this.buildList(); return; }
+        this.filteredTeams = this.teams
+          .filter(t => this.normalizeStr(t).includes(q))
+          .sort((a, b) => {
+            const ai = this.normalizeStr(a).indexOf(q);
+            const bi = this.normalizeStr(b).indexOf(q);
+            return ai === bi ? a.localeCompare(b, 'hu', {sensitivity: 'base'}) : ai - bi;
+          });
+        this.buildList();
+      }
+      buildList() {
+        this.listWrap.innerHTML = '';
+        if (this.filteredTeams.length === 0) {
+          this.emptyState.classList.remove('hidden');
+          lucide.createIcons({attrs: {'stroke-width': 1.5}});
+          return;
+        }
+        this.emptyState.classList.add('hidden');
+        const frag = document.createDocumentFragment();
+        this.filteredTeams.forEach((team, i) => {
+          frag.appendChild(this.createOption(team));
+          if (i < this.filteredTeams.length - 1) {
+            const sep = document.createElement('div');
+            sep.className = 'mx-6 h-px bg-white/10';
+            frag.appendChild(sep);
+          }
+        });
+        this.listWrap.appendChild(frag);
+        lucide.createIcons({attrs: {'stroke-width': 1.5}});
+      }
+      createOption(team) {
+        const btn = document.createElement('button');
+        btn.type = 'button'; btn.dataset.value = team;
+        btn.className = 'w-full h-12 px-6 flex items-center justify-between hover:bg-white/10 transition text-sm';
+        const span = document.createElement('span');
+        if (this.searchQuery.trim()) {
+          span.className = 'font-medium text-neutral-100';
+          const regex = new RegExp(`(${this.escapeRegex(this.searchQuery)})`, 'ig');
+          span.innerHTML = team.replace(regex, '<span class="text-cyan-400 underline">$1</span>');
+        } else {
+          span.className = 'text-gradient font-medium';
+          span.textContent = team;
+        }
+        const icon = document.createElement('i'); icon.dataset.lucide = 'check'; icon.className = 'w-4 h-4 stroke-emerald-400 opacity-0';
+        btn.appendChild(span); btn.appendChild(icon);
+        btn.addEventListener('click', () => this.select(team));
+        return btn;
+      }
+      select(team) {
+        this.selected = team;
+        this.labelEl.textContent = team;
+        this.clearSelectionIcon.classList.remove('opacity-0','pointer-events-none');
+        this.toggle.setAttribute('aria-expanded','false');
+        this.close();
+      }
+      resetSelection() {
+        this.selected = null;
+        this.labelEl.textContent = this.defaultLabel;
+        this.clearSelectionIcon.classList.add('opacity-0','pointer-events-none');
+      }
+      open() {
+        this.isOpen = true;
+        this.toggle.setAttribute('aria-expanded','true');
+        this.dropdown.classList.remove('opacity-0','invisible','translate-y-2','scale-95','max-h-0');
+        this.dropdown.classList.add('opacity-100','visible','translate-y-0','scale-100');
+        this.dropdown.style.maxHeight = this.config.maxHeight + 'px';
+        this.backdrop.classList.remove('opacity-0','invisible');
+        this.chevron.classList.add('rotate-180');
+        this.searchInput.focus();
+        this.buildList();
+      }
+      close() {
+        this.isOpen = false;
+        this.toggle.setAttribute('aria-expanded','false');
+        this.dropdown.classList.add('opacity-0','invisible','translate-y-2','scale-95','max-h-0');
+        this.dropdown.classList.remove('opacity-100','visible','translate-y-0','scale-100');
+        this.backdrop.classList.add('opacity-0','invisible');
+        this.chevron.classList.remove('rotate-180');
+        this.searchInput.value = '';
+        this.searchQuery = '';
+        this.updateClearBtn();
+        this.filteredTeams = [...this.teams];
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.team-selector').forEach(root => new PerfectTeamSelector(root));
+    });
+  </script>
+</body>
+</html>
